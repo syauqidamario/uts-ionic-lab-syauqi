@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="sidebar"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end" (click)="triggerButton()">
+      <ion-button>
+        <ion-icon name="grid" slot="end" [name]="List ? 'grid' : 'list' "></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="List">
+  <ion-card *ngFor="let item of Products " [routerLink]="['./', item.objectID]">
+    <ion-card-content>
+      <ion-list>
+        <ion-item lines="none">
+          <ion-thumbnail  slot="start">
+            <ion-img [src]="item.imageURL"></ion-img>
+          </ion-thumbnail >
+          <ion-label>
+            <b>{{item.brand}} {{item.model}}</b><br>
+            {{item.price | currency: 'Rp ':true:'2.0'}}<br>
+            Available: {{item.stock}}
+          </ion-label>
+        </ion-item> 
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-content *ngIf="!List">
+  <ion-grid>
+    <ion-row size="12">
+        <ion-col *ngFor="let item of Products" [size]="iconStatus ? '12':'6'" [routerLink]="['./',item.objectID]">
+        <ion-item>  
+          <ion-row>
+            <ion-img style="width: 150px; height: 70px; margin-top: 10px; margin-bottom: 10px; align-self: center;" [src]="item.imageURL"></ion-img>
+            <ion-col style="align-self: center;">
+              <ion-label class="item-content-12"><b>{{item.brand}} {{item.model}}</b><br></ion-label>
+              <ion-label class="item-content-12">{{item.price | currency: 'Rp ':true:'2.0'}}<br></ion-label>
+              <ion-label class="item-content-12">Available: {{item.stock}}</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="sideMenu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Admin Page</ion-title>
+    <ion-buttons slot="end" [routerLink]="['./','create-page']" >
+      <ion-button>
+        <ion-icon name="add" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let product of Products" (click)="EditProduct(product.objectID)">
+    <ion-card-content>
+
+      <ion-list>
+        <ion-item-sliding #slidingItem *ngIf="product.stock != 0">
+          <ion-item-options side="start" (ionSwipe)="PresentAlert(product.objectID)"></ion-item-options>
+
+          <ion-item lines="none">
+            <ion-thumbnail  slot="start">
+              <ion-img [src]="product.imageURL"></ion-img>
+            </ion-thumbnail >
+            <ion-label>
+              <b>{{product.brand}} {{product.model}}</b><br>
+              {{product.price | currency: 'Rp.':true:'2.0'}}<br>
+              Available: {{product.stock}}
+            </ion-label>
+          </ion-item>
+          <ion-item-options side="end" (ionSwipe)="EditProduct(product.objectID)"></ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
